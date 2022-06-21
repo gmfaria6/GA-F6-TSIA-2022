@@ -111,7 +111,7 @@ def my_AG(population_size, number_of_generations, considered):
 
 
 if __name__ == '__main__':
-    all_population = my_AG(population_size=200, number_of_generations=400, considered=9)
+    all_population = my_AG(population_size=200, number_of_generations=400, considered=20)
 
     x = []
     y = []
