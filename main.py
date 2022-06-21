@@ -4,14 +4,6 @@ import math
 import matplotlib.pyplot as plt
 
 
-def random_individual_gen(p):
-    key1 = ""
-    for i in range(p):
-        temp = str(random.randint(0, 1))
-        key1 += temp
-    return (key1)
-
-
 def calculate_FO(x, y):
     F6 = 0.5 - ((math.sin(math.sqrt(x*x + y*y)))**2 - 0.5)/((1.0 + 0.001 * (x**2 + y**2))**2)
 
