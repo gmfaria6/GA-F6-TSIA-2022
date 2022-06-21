@@ -2,6 +2,7 @@ import random
 import numpy as np
 import math
 
+
 def random_individual_gen(p):
     key1 = ""
     for i in range(p):
@@ -16,8 +17,27 @@ def calculate_FO(x, y):
     return F6
 
 
+def roulette_selection(parents_pool, population_size):
+    roulette = []
+
+    new_parents = []
+
+    while len(new_parents) < population_size:
+        for parent in parents_pool:
+            slot_size = int(parent["fitness"] * 10)
+
+            for i in range(0, slot_size):
+                roulette.append({"id": parent["id"], "fitness": parent["fitness"]})
+
+        selected = random.randrange(0, len(roulette))
+
+        new_parents.append(roulette[selected])
+
+    return new_parents
+
+
 def my_AG(population_size=10):
-    random.seed(10)
+    random.seed(55)
     generation = 0
     population = {}
     population[generation] = []
@@ -26,12 +46,22 @@ def my_AG(population_size=10):
                          np.binary_repr(random.randrange(-100, 100), width=22)
 
         # BEFORE APLYING THE FO
-        x = (int(new_individual[0:21], 2) * (200 / (2 ** 22 - 1))) - 100
-        y = (int(new_individual[21:44], 2) * (200 / (2 ** 22 - 1))) - 100
+        x = (int(new_individual[0:22], 2) * (200 / (2 ** 22 - 1))) - 100
+        y = (int(new_individual[22:44], 2) * (200 / (2 ** 22 - 1))) - 100
 
-        population[generation].append({'id': new_individual, 'fitness': calculate_FO(x, y)})
+        population[generation].append({"id": new_individual, "fitness": calculate_FO(x, y)})
 
-    print(population)
+    parents_pool = []
+
+    for cromo in population[generation]:
+        parents_pool.append({"id": cromo["id"][0:22], "fitness": cromo["fitness"]})
+        parents_pool.append({"id": cromo["id"][22:44], "fitness": cromo["fitness"]})
+
+    selected_parents = roulette_selection(parents_pool, population_size)
+
+    print(selected_parents)
+
+
 
 
     # changing the first string element
