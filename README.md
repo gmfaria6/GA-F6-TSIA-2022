@@ -2,4 +2,4 @@
 
 Solving the F6 problem proposed:
 
-![alt text](https://www.researchgate.net/publication/316804716/figure/fig3/AS:873433835532294@1585254262973/The-difficulty-in-optimising-the-Schaffers-F6-function-lies-in-the-fact-that-the.png")
+![alt text](https://github.com/gmfaria6/TSIA_GA/blob/main/F6_plot.png)
