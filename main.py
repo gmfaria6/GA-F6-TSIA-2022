@@ -106,12 +106,15 @@ def my_AG(population_size, number_of_generations, considered):
         index_out = random.randrange(0, len(population[generation + 1]))
         population[generation + 1][index_out] = best_cromo
 
+        # print((int(best_cromo["id"][0:22], 2) * (200 / (2 ** 22 - 1))) - 100)
+        # print((int(best_cromo["id"][22:44], 2) * (200 / (2 ** 22 - 1))) - 100)
+
         generation += 1
     return population
 
 
 if __name__ == '__main__':
-    all_population = my_AG(population_size=200, number_of_generations=400, considered=20)
+    all_population = my_AG(population_size=50, number_of_generations=400, considered=20)
 
     x = []
     y = []
