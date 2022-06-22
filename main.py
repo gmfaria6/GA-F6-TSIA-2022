@@ -2,6 +2,7 @@ import random
 import numpy as np
 import math
 import matplotlib.pyplot as plt
+from matplotlib import cm
 
 
 def calculate_FO(x, y):
@@ -114,10 +115,11 @@ def my_AG(population_size, number_of_generations, considered):
 
 
 if __name__ == '__main__':
-    all_population = my_AG(population_size=50, number_of_generations=400, considered=20)
+    all_population = my_AG(population_size=200, number_of_generations=200, considered=7)
 
     x = []
     y = []
+    z = []
     c = []
 
     for generation in all_population:
@@ -125,9 +127,13 @@ if __name__ == '__main__':
             c.append(generation)
             x.append((int(croma["id"][0:22], 2) * (200 / (2 ** 22 - 1))) - 100)
             y.append((int(croma["id"][22:44], 2) * (200 / (2 ** 22 - 1))) - 100)
+            z.append(croma["fitness"])
 
-    plt.scatter(x, y, c=c, alpha=1)
-    plt.colorbar(label="Generation", orientation="horizontal")
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.scatter(x, y, z, c=c, cmap=cm.coolwarm, marker='o')
+
+    # plt.colorbar(label="Generation", orientation="horizontal", c=c, cmap=cm.coolwarm)
     plt.show()
 
     # (100 - 40) BEST CROMO FITNESS 0.9999993979950594
