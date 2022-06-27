@@ -142,5 +142,7 @@ if __name__ == '__main__':
     # plt.colorbar(label="Generation", orientation="horizontal", c=c, cmap=cm.coolwarm)
     plt.show()
 
+    plt.save("GA_F6.png")
+
     # (100 - 40) BEST CROMO FITNESS 0.9999993979950594
     # (10 - 400) BEST CROMO FITNESS 0.9999999988619942
