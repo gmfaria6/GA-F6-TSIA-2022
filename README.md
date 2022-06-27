@@ -1,6 +1,6 @@
 # Genetic Algorithm
 
-## Solving the F6 problem proposed:
+## Solving the F6 problem:
 
 ![F6](https://github.com/gmfaria6/TSIA_GA/blob/main/F6_plot.png)
 
