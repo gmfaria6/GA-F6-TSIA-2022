@@ -39,9 +39,9 @@ def crossover(parent1, parent2):
     return new_parent1, new_parent2
 
 
-def mutation(parent1, parent2):
+def mutation(parent1, parent2, mutation_param):
     for i in range(0, len(parent1)):
-        if random.randrange(0, 100) < 2:
+        if random.randrange(0, 100) < mutation_param+1:
             if parent1[i] == '1':
                 parent1 = parent1[:i] + '0' + parent1[i + 1:]
             else:
@@ -50,7 +50,7 @@ def mutation(parent1, parent2):
     return parent1, parent2
 
 
-def my_AG(population_size, number_of_generations, considered):
+def my_AG(population_size, number_of_generations, crossover_param, mutation_param, considered):
     random.seed(55)
     population = {}
     population[0] = []
@@ -59,16 +59,18 @@ def my_AG(population_size, number_of_generations, considered):
         print("----------------------------------------------------------------------------------------------")
         print("Generation", generation)
         print("----------------------------------------------------------------------------------------------")
+
         population[generation + 1] = []
+
         if not generation:
             for i in range(0, int(population_size/2)):
-                new_individual = np.binary_repr(random.randrange(-100, 100), width=22) +\
+                new_cromo = np.binary_repr(random.randrange(-100, 100), width=22) +\
                                  np.binary_repr(random.randrange(-100, 100), width=22)
 
-                x = (int(new_individual[0:22], 2) * (200 / (2 ** 22 - 1))) - 100
-                y = (int(new_individual[22:44], 2) * (200 / (2 ** 22 - 1))) - 100
+                x = (int(new_cromo[0:22], 2) * (200 / (2 ** 22 - 1))) - 100
+                y = (int(new_cromo[22:44], 2) * (200 / (2 ** 22 - 1))) - 100
 
-                population[generation].append({"id": new_individual, "fitness": round(calculate_FO(x, y), considered)})
+                population[generation].append({"id": new_cromo, "fitness": round(calculate_FO(x, y), considered)})
 
         value = 0
 
@@ -93,10 +95,10 @@ def my_AG(population_size, number_of_generations, considered):
             it += 1
             parent2 = selected_parents[it]
 
-            if random.randrange(0, 100) < 76:
+            if random.randrange(0, 100) < crossover_param+1:
                 parent1["id"], parent2["id"] = crossover(parent1["id"], parent2["id"])
 
-            parent1["id"], parent2["id"] = mutation(parent1["id"], parent2["id"])
+            parent1["id"], parent2["id"] = mutation(parent1["id"], parent2["id"], mutation_param)
 
             x = (int(parent1["id"], 2) * (200 / (2 ** 22 - 1))) - 100
             y = (int(parent2["id"], 2) * (200 / (2 ** 22 - 1))) - 100
@@ -115,7 +117,11 @@ def my_AG(population_size, number_of_generations, considered):
 
 
 if __name__ == '__main__':
-    all_population = my_AG(population_size=200, number_of_generations=200, considered=7)
+    all_population = my_AG(population_size=200,
+                           number_of_generations=200,
+                           crossover_param=75,
+                           mutation_param=1,
+                           considered=7)
 
     x = []
     y = []
